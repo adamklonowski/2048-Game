@@ -81,4 +81,23 @@ public class Board
         }
         System.out.println();
     }
+
+    public void makeMove(Direction direction)
+    {
+        if (direction.equals(Direction.UP))
+        {
+            System.out.println("UP");
+        } else if (direction.equals(Direction.DOWN))
+        {
+            System.out.println("DOWN");
+        } else if (direction.equals(Direction.LEFT))
+        {
+            System.out.println("LEFT");
+        } else if (direction.equals(Direction.RIGHT))
+        {
+            System.out.println("RIGHT");
+        }
+
+        }
+
 }

@@ -31,6 +31,22 @@ public class Main {
         Board board = new Board(width, height);
         board.addDefaultBlock();
         board.renderBoard();
+
+        while (true)
+        {
+            String input = scanner.next();
+            Direction direction = Direction.getDirection(input.toCharArray()[0]);
+            while (direction == null)
+            {
+                input = scanner.next();
+                direction = Direction.getDirection(input.toCharArray()[0]);
+            }
+
+            board.makeMove(direction);
+            board.renderBoard();
+
+        }
+
     }
 
 
