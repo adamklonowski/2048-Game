@@ -84,20 +84,63 @@ public class Board
 
     public void makeMove(Direction direction)
     {
-        if (direction.equals(Direction.UP))
+        boolean anythingChanged = false;
+        if (direction.equals(Direction.UP) || direction.equals(Direction.LEFT))
         {
-            System.out.println("UP");
-        } else if (direction.equals(Direction.DOWN))
-        {
-            System.out.println("DOWN");
-        } else if (direction.equals(Direction.LEFT))
-        {
-            System.out.println("LEFT");
-        } else if (direction.equals(Direction.RIGHT))
-        {
-            System.out.println("RIGHT");
+            for (int y = 0; y < this.height; y++)
+            {
+                for (int x = 0; x < this.width; x++)
+                {
+                    int value = this.blocks[x][y];
+                    if (value == 0)
+                    {
+                        continue;
+                    }
+                    if ((direction.equals(Direction.UP) && y == 0) || (direction.equals(Direction.LEFT) && x == 0))
+                    {
+                        continue;
+                    }
+                    int directionedValue = this.blocks[x + direction.getWidth()][y + direction.getHeight()];
+                    if (directionedValue != 0 && value / directionedValue != 1)
+                    {
+                        continue;
+                    }
+                    this.blocks[x][y] = 0;
+                    this.blocks[x + direction.getWidth()][y + direction.getHeight()] = value + directionedValue;
+                    anythingChanged = true;
+                }
+            }
         }
-
+        else if ( direction.equals(Direction.DOWN) || direction.equals(Direction.RIGHT))
+        {
+           for (int y = this.height - 1; y >= 0; y--)
+           {
+               for (int x = this.width - 1; x >= 0; x--)
+               {
+                   int value = this.blocks[x][y];
+                   if (value == 0)
+                   {
+                       continue;
+                   }
+                   if ((direction.equals(Direction.DOWN) && y == this.height - 1) || (direction.equals(Direction.RIGHT) && x == this.width - 1))
+                   {
+                       continue;
+                   }
+                   int directionedValue = this.blocks[x + direction.getWidth()][y + direction.getHeight()];
+                   if (directionedValue != 0 && value / directionedValue != 1)
+                   {
+                       continue;
+                   }
+                   this.blocks[x][y] = 0;
+                   this.blocks[x + direction.getWidth()][y + direction.getHeight()] = value + directionedValue;
+                   anythingChanged = true;
+               }
+           }
+        }
+        if (anythingChanged)
+        {
+            this.addRandomBlock();
+        }
         }
 
 }
